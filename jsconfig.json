@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@pages/*": ["src/pages/*"],
+      "@utils": ["src/utils"],
+      "@stores": ["src/stores"]  
+    }
+  },
+  "exclude": ["node_modules"]
+}
