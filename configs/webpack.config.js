@@ -6,10 +6,13 @@ const port = process.env.PORT || 3000;
 module.exports = {
   mode: "development",
   devtool: "inline-source-map",
-  entry: "./src/index.js",
+  entry: [
+    require.resolve('../src/index.js'),
+  ],
   output: {
-    path: path.join(__dirname, "/dist"),
+    path: path.join(__dirname ,"../dist"),
     filename: "index_bundle.js",
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -45,12 +48,20 @@ module.exports = {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         use: "url-loader",
       },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      }
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
-      favicon: "public/favicon.ico",
+      favicon: "./public/favicon.ico",
     }),
   ],
   devServer: {
@@ -58,15 +69,16 @@ module.exports = {
     port: port,
     historyApiFallback: true,
     open: true,
-    stats: 'errors-only',
+    stats: "errors-only",
   },
   resolve: {
     alias: {
-      "@components": path.resolve(__dirname, "src/components/"),
-      "@assets": path.resolve(__dirname, "src/assets/"),
-      "@pages": path.resolve(__dirname, "src/pages/"),
-      "@utils": path.resolve(__dirname, "src/utils/"),
-      "@stores": path.resolve(__dirname, "src/stores/"),
+      "@components": path.resolve(__dirname, "..", "src/components/"),
+      "@assets": path.resolve(__dirname, "..", "src/assets/"),
+      "@pages": path.resolve(__dirname, "..", "src/pages/"),
+      "@utils": path.resolve(__dirname, "..", "src/utils/"),
+      "@stores": path.resolve(__dirname, "..", "src/stores/"),
+      "@routes": path.resolve(__dirname, "..", "src/routes/"),
     },
   },
 };
